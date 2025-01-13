@@ -1,7 +1,7 @@
 import express from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-
+import { SECRET_KEY } from "../middlewares/authMiddleware.js";
 import { User } from "../models/userModel.js";
 
 import { sendVerificationEmail } from "../mailer.js";
@@ -9,8 +9,8 @@ import { sendVerificationEmail } from "../mailer.js";
 const router = express.Router();
 
 //Route for User Sign Up
-const SECRET_KEY =
-  "iprhdfkn.ndknhfdhfdklfkjldskjlfkjldfkjldskjlfjdsklfjkldskjlfkjldsfkjldskjlfkjldsfkjldskjlfkjldsfkjldskjlfdskjlfkjldskjlfdskjlfkjldfknjds";
+/*const SECRET_KEY =
+  "iprhdfkn.ndknhfdhfdklfkjldskjlfkjldfkjldskjlfjdsklfjkldskjlfkjldsfkjldskjlfkjldsfkjldskjlfkjldsfkjldskjlfdskjlfkjldskjlfdskjlfkjldfknjds";*/
 
 //Route for User Login
 
@@ -38,9 +38,13 @@ router.post("/signup", async (req, res) => {
     });
 
     // Generate a verification token
-    const token = jwt.sign({ id: newUser._id }, SECRET_KEY, {
-      expiresIn: "1h",
-    });
+    const token = jwt.sign(
+      { id: newUser._id, type: "verification" },
+      SECRET_KEY,
+      {
+        expiresIn: "1h",
+      }
+    );
 
     // Send verification email
     sendVerificationEmail(email, token);
