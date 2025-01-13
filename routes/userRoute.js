@@ -1,6 +1,7 @@
 import express from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { verifyToken } from "../authMiddleware.js";
 import { User } from "../models/userModel.js";
 
 import { sendVerificationEmail } from "../mailer.js";
@@ -14,7 +15,7 @@ const router = express.Router();
 //Route for User Login
 
 // Signup Route
-router.post("/signup", async (req, res) => {
+router.post("/signup", verifyToken, async (req, res) => {
   try {
     const { username, email, password } = req.body;
 
@@ -53,7 +54,7 @@ router.post("/signup", async (req, res) => {
   }
 });
 
-router.get("/verify/:token", async (req, res) => {
+router.get("/verify/:token", verifyToken, async (req, res) => {
   try {
     const { token } = req.params;
 
@@ -78,7 +79,7 @@ router.get("/verify/:token", async (req, res) => {
   }
 });
 
-router.post("/login", async (req, res) => {
+router.post("/login", verifyToken, async (req, res) => {
   console.log(req.body);
   try {
     const { username, password } = req.body;
