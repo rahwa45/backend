@@ -65,6 +65,10 @@ router.get("/verify/:token", async (req, res) => {
     // Verify the token
     const decoded = jwt.verify(token, SECRET_KEY);
 
+    if (decoded.type !== "verification") {
+      return res.status(400).json({ message: "Invalid token type" });
+    }
+
     const userId = decoded.id;
 
     // Update the user's verification status
@@ -108,9 +112,13 @@ router.post("/login", async (req, res) => {
     }
 
     // Generate JWT token with userId included
-    const token = jwt.sign({ userId: user._id, isLogged: true }, SECRET_KEY, {
-      expiresIn: "1h",
-    });
+    const token = jwt.sign(
+      { userId: user._id, type: "auth", isLogged: true },
+      SECRET_KEY,
+      {
+        expiresIn: "1h",
+      }
+    );
 
     return res.status(200).json({ token, username: user.username });
   } catch (error) {
