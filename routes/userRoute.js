@@ -1,7 +1,7 @@
 import express from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { SECRET_KEY } from "../middlewares/authMiddleware.js";
+import { SECRET_KEY } from "../authMiddleware.js";
 import { User } from "../models/userModel.js";
 
 import { sendVerificationEmail } from "../mailer.js";
