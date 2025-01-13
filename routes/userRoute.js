@@ -7,10 +7,6 @@ import { sendVerificationEmail } from "../mailer.js";
 const router = express.Router();
 
 //Route for User Sign Up
-const SECRET_KEY =
-  "iprhdfkn.ndknhfdhfdklfkjldskjlfkjldfkjldskjlfjdsklfjkldskjlfkjldsfkjldskjlfkjldsfkjldskjlfkjldsfkjldskjlfdskjlfkjldskjlfdskjlfkjldfknjds";
-
-//Route for User Login
 
 // Signup Route
 router.post("/signup", async (req, res) => {
@@ -58,6 +54,7 @@ router.get("/verify/:token", async (req, res) => {
 
     // Verify the token
     const decoded = jwt.verify(token, SECRET_KEY);
+
     const userId = decoded.id;
 
     // Update the user's verification status
