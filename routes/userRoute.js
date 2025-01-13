@@ -7,6 +7,10 @@ import { sendVerificationEmail } from "../mailer.js";
 const router = express.Router();
 
 //Route for User Sign Up
+const SECRET_KEY =
+  "iprhdfkn.ndknhfdhfdklfkjldskjlfkjldfkjldskjlfjdsklfjkldskjlfkjldsfkjldskjlfkjldsfkjldskjlfkjldsfkjldskjlfdskjlfkjldskjlfdskjlfkjldfknjds";
+
+//Route for User Login
 
 // Signup Route
 router.post("/signup", async (req, res) => {
