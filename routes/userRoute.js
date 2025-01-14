@@ -58,9 +58,9 @@ router.post("/signup", async (req, res) => {
   }
 });
 
-router.get("/verify/:token", async (req, res) => {
+router.get("/verify", async (req, res) => {
   try {
-    const { token } = req.params;
+    const { token } = req.query;
 
     // Verify the token
     const decoded = jwt.verify(token, SECRET_KEY);

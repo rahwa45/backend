@@ -9,7 +9,7 @@ const transporter = nodemailer.createTransport({
 });
 
 export const sendVerificationEmail = (email, token) => {
-  const verificationLink = `https://frontend-ogxu.onrender.com/verify/${token}`;
+  const verificationLink = `https://frontend-ogxu.onrender.com/verify?token=${token}`;
 
   const mailOptions = {
     from: "rahwa3113@gmail.com",
